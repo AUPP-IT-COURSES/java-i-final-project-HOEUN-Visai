@@ -2,35 +2,42 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// Quiz class that extends JFrame and implements ActionListener
 public class Quiz extends JFrame implements ActionListener {
 
+    // Arrays to store questions, answer options, correct answers, and user answers
     String questions[][] = new String[10][5];
     String answers[][] = new String[10][2];
     String useranswers[][] = new String[10][1];
+    // GUI components
     JLabel qno, question;
     JRadioButton opt1, opt2, opt3, opt4;
     ButtonGroup groupoptions;
     JButton next, submit, lifeline;
 
+    // Timer and scoring variables
     public static int timer = 15;
     public static int ans_given = 0;
     public static int count = 0;
     public static int score = 0;
 
+    // User's name
     String name;
 
     Quiz(String name) {
         this.name = name;
+        // Initialize JFrame properties
         setBounds(5, 5, 1250, 680);
         getContentPane().setBackground(Color.WHITE);
-        // setUndecorated(true);
         setLayout(null);
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/quiz.png"));
+        // Load and display an image
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/JavaQuiz.png"));
         JLabel image = new JLabel(i1);
         image.setBounds(0, 0, 1250, 292);
         add(image);
 
+        // Set up questions and answers
         qno = new JLabel();
         qno.setBounds(10, 45, 50, 30);
         qno.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -41,53 +48,53 @@ public class Quiz extends JFrame implements ActionListener {
         question.setFont(new Font("Tahoma", Font.PLAIN, 24));
         add(question);
 
-        questions[0][0] = "1. Number of primitive data types in Java are?";
-        questions[0][1] = "6";
-        questions[0][2] = "7";
-        questions[0][3] = "8";
-        questions[0][4] = "9";
+        questions[0][0] = "1. What is a correct syntax to output \"Hello World\" in Java?";
+        questions[0][1] = "Console.WriteLine('Hello World')";
+        questions[0][2] = "print('Hello World')";
+        questions[0][3] = "System.out.println('Hello World')";
+        questions[0][4] = "echo('Hello World')";
 
-        questions[1][0] = "2. What is the size of float and double in java?";
-        questions[1][1] = "32 and 64";
-        questions[1][2] = "32 and 32";
-        questions[1][3] = "64 and 64";
-        questions[1][4] = "64 and 32";
+        questions[1][0] = "2. How do you insert COMMENTS in java code?";
+        questions[1][1] = "// This is a comment";
+        questions[1][2] = "/* This is a comment";
+        questions[1][3] = "# This is a comment";
+        questions[1][4] = "** This is a comment";
 
-        questions[2][0] = "3. Automatic type conversion is possible in which of the possible cases?";
-        questions[2][1] = "Byte to int";
-        questions[2][2] = "Int to Long";
-        questions[2][3] = "Long to int";
-        questions[2][4] = "Short to int";
+        questions[2][0] = "3. Which data type is used to create a variable that should store text?";
+        questions[2][1] = "String";
+        questions[2][2] = "string";
+        questions[2][3] = "myString";
+        questions[2][4] = "Txt";
 
-        questions[3][0] = "4. When an array is passed to a method, what does the method receive?";
-        questions[3][1] = "The reference of the array";
-        questions[3][2] = "A copy of the array";
-        questions[3][3] = "Length of the array";
-        questions[3][4] = "Copy of first element";
+        questions[3][0] = "4. How do you create a variable with the numeric value 5?";
+        questions[3][1] = "float x = 5; ";
+        questions[3][2] = "int x = 5; ";
+        questions[3][3] = "x = 5; ";
+        questions[3][4] = "num x = 5";
 
-        questions[4][0] = "5. Arrays in java are.?";
+        questions[4][0] = "5. Arrays in java are?";
         questions[4][1] = "Object References";
         questions[4][2] = "Objects";
         questions[4][3] = "Primitive data type";
         questions[4][4] = "None";
 
-        questions[5][0] = "6. When is the object created with new keyword?";
-        questions[5][1] = "At rum time";
-        questions[5][2] = "At compile time";
-        questions[5][3] = "Depends on the code";
-        questions[5][4] = "None";
+        questions[5][0] = "6. Which method can be used to find the length of a string?";
+        questions[5][1] = "getSize()";
+        questions[5][2] = "length()";
+        questions[5][3] = "len()";
+        questions[5][4] = "getLength()";
 
-        questions[6][0] = "7. Identify the corrected definition of a package?";
-        questions[6][1] = "A package is a collection of editing tools";
-        questions[6][2] = "A package is a collection of Classes";
-        questions[6][3] = "A package is a collection of Classes and interfaces";
-        questions[6][4] = "A package is a collection of interfaces";
+        questions[6][0] = "7. What is the correct way to create an object called myObj of MyClass?";
+        questions[6][1] = "class MyClass = new myObj(); ";
+        questions[6][2] = "new myObj = MyClass(); ";
+        questions[6][3] = "class myObj = new MyClass(); ";
+        questions[6][4] = "MyClass myObj = new MyClass(); ";
 
-        questions[7][0] = "8. compareTo() returns";
-        questions[7][1] = "True";
-        questions[7][2] = "False";
-        questions[7][3] = "An int value";
-        questions[7][4] = "None";
+        questions[7][0] = "8. How do you start writing an if statement in Java?";
+        questions[7][1] = "if x > y: ";
+        questions[7][2] = "if x > y then: ";
+        questions[7][3] = "If x > y; ";
+        questions[7][4] = "if (x > y)";
 
         questions[8][0] = "9. To which of the following does the class string belong to";
         questions[8][1] = "java.lang";
@@ -95,23 +102,24 @@ public class Quiz extends JFrame implements ActionListener {
         questions[8][3] = "java.applet";
         questions[8][4] = "java.String";
 
-        questions[9][0] = "10. Total constructor string class have?";
-        questions[9][1] = "3";
-        questions[9][2] = "7";
-        questions[9][3] = "13";
-        questions[9][4] = "20";
+        questions[9][0] = "10. How do you start writing a while loop in java?";
+        questions[9][1] = "x > y while { ";
+        questions[9][2] = "while (x > y)";
+        questions[9][3] = "while x > y:";
+        questions[9][4] = "while x > y {";
 
-        answers[0][1] = "8";
-        answers[1][1] = "32 and 64";
-        answers[2][1] = "Int to Long";
-        answers[3][1] = "The reference of the array";
-        answers[4][1] = "Objects";
-        answers[5][1] = "At rum time";
-        answers[6][1] = "A package is a collection of Classes and interfaces";
-        answers[7][1] = "An int value";
+        answers[0][1] = "System.out.println('Hello World')";
+        answers[1][1] = "// This is a comment";
+        answers[2][1] = "String";
+        answers[3][1] = "int x = 5;";
+        answers[4][1] = "Object References";
+        answers[5][1] = "length()";
+        answers[6][1] = "MyClass myObj = new MyClass(); ";
+        answers[7][1] = "if (x > y)";
         answers[8][1] = "java.lang";
-        answers[9][1] = "13";
+        answers[9][1] = "while (x > y)";
 
+        // Initialize and set properties for radio buttons
         opt1 = new JRadioButton();
         opt1.setBounds(170, 350, 700, 30);
         opt1.setBackground(Color.WHITE);
@@ -142,6 +150,7 @@ public class Quiz extends JFrame implements ActionListener {
         groupoptions.add(opt3);
         groupoptions.add(opt4);
 
+        // Initialize and set properties for buttons (Next, Help, Submit)
         next = new JButton("Next");
         next.setBounds(800, 550, 100, 30);
         next.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -173,7 +182,9 @@ public class Quiz extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    // ActionListener interface method to handle button clicks
     public void actionPerformed(ActionEvent ae) {
+        // Handling Next button click
         if (ae.getSource() == next) {
             repaint();
             opt1.setEnabled(true);
@@ -192,9 +203,10 @@ public class Quiz extends JFrame implements ActionListener {
                 next.setEnabled(false);
                 submit.setEnabled(true);
             }
-
+            // Move to the next question
             count++;
             start(count);
+            // Handling help button click
         } else if (ae.getSource() == lifeline) {
             if (count == 2 || count == 4 || count == 6 || count == 8 || count == 9) {
                 opt2.setEnabled(false);
@@ -204,6 +216,7 @@ public class Quiz extends JFrame implements ActionListener {
                 opt4.setEnabled(false);
             }
             lifeline.setEnabled(false);
+            // Handling Submit button click
         } else if (ae.getSource() == submit) {
             ans_given = 1;
             if (groupoptions.getSelection() == null) {
@@ -226,7 +239,7 @@ public class Quiz extends JFrame implements ActionListener {
 
     public void paint(Graphics g) {
         super.paint(g);
-
+        // Display timer countdown
         String time = "Time left - " + timer + " seconds"; // 15
         g.setColor(Color.RED);
         g.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -234,11 +247,12 @@ public class Quiz extends JFrame implements ActionListener {
         if (timer > 0) {
             g.drawString(time, 800, 500);
         } else {
-            g.drawString("Times up!!", 1100, 500);
+            g.drawString("Times up!!", 1000, 500);
         }
 
-        timer--; // 14
+        timer--; // Update the timer and repaint
 
+        // Check if an answer was given or if the timer has expired
         try {
             Thread.sleep(1000);
             repaint();
@@ -290,6 +304,7 @@ public class Quiz extends JFrame implements ActionListener {
     }
 
     public void start(int count) {
+        // Set text for labels, radio buttons, and clear selection
         qno.setText("" + (count + 1) + ". ");
         question.setText(questions[count][0]);
         opt1.setText(questions[count][1]);
@@ -307,6 +322,7 @@ public class Quiz extends JFrame implements ActionListener {
         groupoptions.clearSelection();
     }
 
+    // Main method to create an instance of the Quiz class
     public static void main(String[] args) {
         new Quiz("User");
     }
